@@ -1,31 +1,30 @@
 import React from 'react';
-import { type TextProps, View, StyleSheet } from 'react-native';
+import { type ViewProps } from 'react-native';
 import { Text } from './Text';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  divider: {
-    borderBottomColor: '#D3D3D3',
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  text: {
-    color: '#D3D3D3',
-    paddingHorizontal: 18,
-    backgroundColor: 'white',
-    width: 'auto',
-    position: 'absolute',
-    top: -8,
-  },
-});
+const Container = styled.View`
+  border-bottom-width: ${({ theme }) => theme.borders.width}px;
+  border-color: ${({ theme }) => theme.colors.border};
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
 
-export const Divider: React.FC<TextProps> = ({ children, style, ...props }) => {
-  const containerStyle = [styles.divider, style];
+const Label = styled(Text)`
+  color: ${({ theme }) => theme.colors.border};
+  padding: 0 ${({ theme }) => theme.spacing(4.5)}px;
+  position: absolute;
+  top: -8px;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
+
+export const Divider: React.FC<ViewProps> = ({ children, ...props }) => {
   return (
-    <View style={containerStyle} {...props}>
-      <Text style={styles.text}>{children}</Text>
-    </View>
+    <Container {...props}>
+      <Label>{children}</Label>
+    </Container>
   );
 };

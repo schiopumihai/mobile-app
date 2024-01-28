@@ -1,33 +1,13 @@
-import React from 'react';
-import {
-  TextInput as NativeTextInput,
-  StyleSheet,
-  type TextInputProps,
-} from 'react-native';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#EEEEEE',
-    borderRadius: 4,
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    fontFamily: 'Inter',
-    borderWidth: 0.5,
-    borderColor: '#C5C5C5',
-    borderStyle: 'solid',
-  },
-  placeholder: {
-    color: '#848484',
-  },
-});
-
-export const TextInput: React.FC<TextInputProps> = ({ style, ...props }) => {
-  const inputStyles = [styles.container, style];
-  return (
-    <NativeTextInput
-      style={inputStyles}
-      placeholderTextColor={styles.placeholder.color}
-      {...props}
-    />
-  );
-};
+export const TextInput = styled.TextInput`
+  background-color: ${({ theme }) => theme.colors.background};
+  border-radius: ${({ theme }) => theme.borders.radius}px;
+  font-family: ${({ theme }) => theme.fonts.Inter};
+  border: ${({ theme }) => theme.borders.width}px solid
+    ${({ theme }) => theme.colors.border};
+  font-family: ${({ theme }) => theme.fonts.Inter};
+  padding: ${({ theme }) => theme.spacing(3.5)}px
+    ${({ theme }) => theme.spacing(3)}px;
+  placeholderTextColor: ${({ theme }) => theme.colors.placeholder};
+`;

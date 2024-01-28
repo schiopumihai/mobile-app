@@ -1,20 +1,16 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useCallback } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import styled, { ThemeProvider } from 'styled-components/native';
+import { Router } from '@/app/router/Router';
+import { theme } from '@/app/theme';
 
-import { Router } from '@/app/Router';
+void SplashScreen.preventAutoHideAsync();
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-SplashScreen.preventAutoHideAsync();
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+const SafeArea = styled.SafeAreaView`
+  flex: 1;
+`;
 
 const Root: React.FC = () => {
   const [fontsLoaded, fontError] = useFonts({
@@ -33,14 +29,11 @@ const Root: React.FC = () => {
   }
 
   return (
-    <NavigationContainer>
-      {
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
-          <Router />
-        </SafeAreaView>
-      }
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <SafeArea onLayout={onLayoutRootView}>
+        <Router />
+      </SafeArea>
+    </ThemeProvider>
   );
 };
 

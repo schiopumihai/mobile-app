@@ -1,43 +1,33 @@
 import React from 'react';
-import {
-  Pressable,
-  type PressableProps,
-  StyleSheet,
-  type ViewStyle,
-} from 'react-native';
+import styled from 'styled-components/native';
+import { type PressableProps } from 'react-native';
 import { Text } from './Text';
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#1877F2',
-    borderRadius: 4,
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-    fontFamily: 'Inter',
-  },
-  disabledButton: {
-    backgroundColor: '#1877F299',
-  },
-  title: {
-    color: 'white',
-    textAlign: 'center',
-  },
-});
+export interface StyledPressableProps extends PressableProps {
+  fullWidth?: boolean;
+}
 
-export const Button: React.FC<PressableProps> = ({
-  style,
+const Pressable = styled.Pressable<StyledPressableProps>`
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.disabled : theme.colors.primary};
+  border-radius: ${({ theme }) => theme.borders.radius}px;
+  padding: ${({ theme }) => theme.spacing(3.5)}px
+    ${({ theme }) => theme.spacing(3)}px;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+`;
+
+const Label = styled(Text)`
+  color: ${({ theme }) => theme.colors.white};
+  text-align: center;
+`;
+
+export const Button: React.FC<StyledPressableProps> = ({
   children,
-  disabled,
   ...props
 }) => {
-  const buttonStyles = [
-    styles.button,
-    style,
-    disabled ? styles.disabledButton : null,
-  ];
   return (
-    <Pressable {...props} style={buttonStyles as ViewStyle}>
-      <Text style={styles.title}>{children as any}</Text>
+    <Pressable {...props}>
+      <Label>{children as any}</Label>
     </Pressable>
   );
 };

@@ -1,63 +1,42 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from '@/components/Text';
 import { TextInput } from '@/components/TextInput';
 import { Button } from '@/components/Button';
 import { Divider } from '@/components/Divider';
+import styled from 'styled-components/native';
+import { Logo } from '@/components/Log';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 28,
-  },
-  logo: {
-    fontFamily: 'Pacifico',
-    fontSize: 32,
-    marginBottom: 34,
-  },
-  width: {
-    width: '100%',
-  },
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing(7)}px;
+  gap: ${({ theme }) => theme.spacing(10.5)}px;
+`;
 
-  formContainer: {
-    width: '100%',
-    display: 'flex',
-    gap: 14,
-  },
-
-  divider: {
-    width: '100%',
-    marginVertical: 42,
-  },
-});
+const FormContainer = styled.View`
+  width: 100%;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing(3.5)}px;
+`;
 
 export const LogIn: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>Mobile App</Text>
-      <View style={styles.formContainer}>
-        <TextInput
-          placeholder="Phone number, email or username"
-          style={styles.width}
-        />
-        <TextInput
-          placeholder="Password"
-          style={styles.width}
-          secureTextEntry
-        />
+    <Container>
+      <Logo />
+      <FormContainer>
+        <TextInput placeholder="Phone number, email or username" />
+        <TextInput placeholder="Password" secureTextEntry />
         <Button
-          style={styles.width}
           onPress={() => {
             console.log('Pressed');
           }}
+          fullWidth
         >
           Sign In
         </Button>
-      </View>
-      <Divider style={styles.divider}>OR</Divider>
-      <Button style={styles.width}>Sign Up with Facebook</Button>
-    </View>
+      </FormContainer>
+      <Divider>OR</Divider>
+      <Button fullWidth>Sign Up with Facebook</Button>
+    </Container>
   );
 };
